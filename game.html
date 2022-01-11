@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Don't Get Mad</title>
+    <link
+      rel="shortcut icon"
+      type="image/png"
+      href="images\favicon\favicon.png"
+    />
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+      integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css" />
+    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css" />
+    <script type="module" src="modules/appModule.js"></script>
+    <script type="module" src="modules/boardModule.js"></script>
+    <script type="module" src="modules/diceModule.js"></script>
+    <script type="module" src="modules/gamePage.js"></script>
+  </head>
+
+  <body>
+    <div class="row">
+      <div class="col-md-8" style="padding: 20px 80px">
+        <img
+          src="images/in_game_logo.png"
+          class="logo-game"
+          alt="Don't get mad!"
+        />
+        <div id="board" class="gameBoard">
+          <div
+            id="row0"
+            style="width: 75px"
+            class="boardRow justify-content-center"
+          >
+            <img src="/images/red_arrow.png" alt="" />
+          </div>
+          <div id="row1" class="boardRow">
+            <div id="0" class="tile">Start</div>
+          </div>
+          <div id="row2" class="boardRow oddBoardRow"></div>
+          <div id="row3" class="boardRow" style="direction: rtl"></div>
+          <div id="row4" class="boardRow evenBoardRow"></div>
+          <div id="row5" class="boardRow"></div>
+          <div id="row6" class="boardRow oddBoardRow"></div>
+          <div id="row7" class="boardRow" style="direction: rtl"></div>
+          <div id="row8" class="boardRow evenBoardRow"></div>
+          <div id="row9" class="boardRow"></div>
+          <!-- <div id="row10" class="boardRow" style="direction: rtl">
+          <img src="./images/winner.png" alt="" width="75px" />
+        </div> -->
+        </div>
+      </div>
+
+      <div id="winnerModal" class="w3-modal" style="display: none">
+        <div
+          class="
+            w3-modal-content w3-animate-top w3-card-4
+            customForm
+            winner-frame
+          "
+        >
+          <header class="w3-container customForm">
+            <span
+              onclick="document.getElementById('winnerModal').style.display='none'"
+              class="w3-button w3-display-topright customFormX"
+              style="font-size: 28px"
+              >&times;</span
+            >
+            <h1>Winner</h1>
+          </header>
+          <div class="w3-container" style="margin-top: 9%">
+            <p id="gameWinner"></p>
+            <img src="images/winner.png" width="150px" class="winner-image" />
+            <img id="winnerAvatar" src="" width="250px" class="winner-image" />
+          </div>
+        </div>
+      </div>
+
+      <div id="wildCard" class="w3-modal" style="display: none">
+        <div
+          class="
+            w3-modal-content w3-animate-top w3-card-4
+            customForm
+            wild-card
+            justify-content-center
+          "
+        >
+          <header class="w3-container customForm">
+            <span
+              onclick="document.getElementById('wildCard').style.display='none'"
+              class="w3-button w3-display-topright customFormX"
+              style="font-size: 28px"
+              >&times;</span
+            >
+            <h1>Spin that Wheel</h1>
+          </header>
+          <div class="w3-container" style="padding: 1px">
+            <button id="spin">Spin</button>
+            <span class="arrow"></span>
+            <div class="wheel-container">
+              <div class="one">1</div>
+              <div class="two">2</div>
+              <div class="three">3</div>
+              <div class="four">4</div>
+              <div class="five">5</div>
+              <div class="six">6</div>
+              <div class="seven">7</div>
+              <div class="eight">8</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-4">
+        <div class="d-flex justify-content-center in-game-buttons">
+          <div class="music-button">
+            <div
+              class="game-button red"
+              id="musicButton"
+              style="width: 50px; height: 50px"
+            >
+              <!--This iframe supposedly goes around the Chrome policy of not autoplaying audio files-->
+              <iframe
+                src="/audio/silence.mp3"
+                allow="autoplay"
+                id="silence"
+                style="display: none"
+              ></iframe>
+              <audio id="audio" autoplay>
+                <source src="/audio/audio.mp3" type="audio/mp3" />
+              </audio>
+              <div id="pauseMusic">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="25"
+                  height="25"
+                  fill="currentColor"
+                  class="bi bi-volume-up-fill"
+                  viewBox="3 3 12 14"
+                >
+                  <path
+                    d="M11.536 14.01A8.473 8.473 0 0 0 14.026 8a8.473 8.473 0 0 0-2.49-6.01l-.708.707A7.476 7.476 0 0 1 13.025 8c0 2.071-.84 3.946-2.197 5.303l.708.707z"
+                  />
+                  <path
+                    d="M10.121 12.596A6.48 6.48 0 0 0 12.025 8a6.48 6.48 0 0 0-1.904-4.596l-.707.707A5.483 5.483 0 0 1 11.025 8a5.483 5.483 0 0 1-1.61 3.89l.706.706z"
+                  />
+                  <path
+                    d="M8.707 11.182A4.486 4.486 0 0 0 10.025 8a4.486 4.486 0 0 0-1.318-3.182L8 5.525A3.489 3.489 0 0 1 9.025 8 3.49 3.49 0 0 1 8 10.475l.707.707zM6.717 3.55A.5.5 0 0 1 7 4v8a.5.5 0 0 1-.812.39L3.825 10.5H1.5A.5.5 0 0 1 1 10V6a.5.5 0 0 1 .5-.5h2.325l2.363-1.89a.5.5 0 0 1 .529-.06z"
+                  />
+                </svg>
+              </div>
+              <div id="playMusic" style="display: none">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="25"
+                  height="25"
+                  fill="currentColor"
+                  class="bi bi-volume-mute-fill"
+                  viewBox="3 3 12 14"
+                >
+                  <path
+                    d="M6.717 3.55A.5.5 0 0 1 7 4v8a.5.5 0 0 1-.812.39L3.825 10.5H1.5A.5.5 0 0 1 1 10V6a.5.5 0 0 1 .5-.5h2.325l2.363-1.89a.5.5 0 0 1 .529-.06zm7.137 2.096a.5.5 0 0 1 0 .708L12.207 8l1.647 1.646a.5.5 0 0 1-.708.708L11.5 8.707l-1.646 1.647a.5.5 0 0 1-.708-.708L10.793 8 9.146 6.354a.5.5 0 1 1 .708-.708L11.5 7.293l1.646-1.647a.5.5 0 0 1 .708 0z"
+                  />
+                </svg>
+              </div>
+            </div>
+          </div>
+          <div class="help-button">
+            <div
+              class="game-button"
+              id="helpButton"
+              style="width: 50px; height: 50px; text-align: center"
+              onclick="document.getElementById('instructions').style.display='block'"
+              class="btn btn-outline-dark createBtn"
+            >
+              ?
+            </div>
+          </div>
+
+          <div id="instructions" class="w3-modal">
+            <div
+              class="
+                w3-modal-content w3-animate-top w3-card-4
+                customForm
+                instruction-modale
+              "
+            >
+              <div class="paragraph">
+                <h2 style="text-align: center">Instructions</h2>
+                <span
+                  id="removeInst"
+                  onclick="document.getElementById('instructions').style.display='none'"
+                  class="w3-button w3-display-topright customFormX"
+                  >&times;</span
+                ><br />
+
+                <p>1) There are 2 players playing the game.</p>
+                <p>2) They both start at position 0.</p>
+                <p>
+                  3) The player must throw 6 in order to start moving through
+                  the board.
+                </p>
+                <p>
+                  4) If a 6 is thrown the player has a chance to throw again. If
+                  there is a 3-rd time the player is blocked.
+                </p>
+                <p>5) Along the board there are placed traps and wild cards.</p>
+                <p>
+                  6) The traps send the player backwards, while the wild card is
+                  by chance, the player is incremented/decremented, or doesn't
+                  move at all.
+                </p>
+                <p>
+                  7) If a player moves to another player's tile it sends that
+                  player back to the beginning of the board (1-st position).
+                </p>
+                <p>
+                  8) You CAN NOT end the game on a 6 (if you are standing on
+                  tile 44 and roll a 6 you will not win the game).
+                </p>
+                <br />
+              </div>
+            </div>
+          </div>
+
+          <div
+            class="restart-button"
+            onclick="document.getElementById('restart-window').style.display='block'"
+          >
+            <div
+              class="game-button green btn btn-outline-dark createBtn"
+              id="restart-button"
+              style="width: 50px; height: 50px; text-align: center"
+              onclick=""
+            >
+              <img
+                src="/images/redo.png"
+                alt="Fail"
+                width="20px"
+                style="padding-bottom: 10px; position: relative"
+              />
+            </div>
+          </div>
+
+          <div id="restart-window" class="w3-modal">
+            <div class="w3-modal-content w3-animate-top w3-card-4 customForm alert-window d-flex" >
+              <div class="paragraph">
+                <h2 style="text-align: center; margin-top: 50px; color: black">
+                  Are you sure you want to restart the game?
+                </h2> <br>
+                <div class="d-flex justify-content-around">
+                  <a href="game.html"><button  class="alert-button"> <img src="/images/check.png" width="25px" alt="yes"> Yes</button></a>
+                  <button class="alert-button"
+                    onclick="document.getElementById('restart-window').style.display='none'"
+                  >
+                  <img src="/images/cancel.png" width="25px" alt="yes"> No
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div id="exitGame" class="game-button orange"
+            onclick="document.getElementById('exit-window').style.display='block'"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="25"
+              height="25"
+              fill="black"
+              class="bi bi-box-arrow-left"
+              viewBox="0 0 18 18"
+            >
+              <path
+                fill-rule="evenodd"
+                d="M6 12.5a.5.5 0 0 0 .5.5h8a.5.5 0 0 0 .5-.5v-9a.5.5 0 0 0-.5-.5h-8a.5.5 0 0 0-.5.5v2a.5.5 0 0 1-1 0v-2A1.5 1.5 0 0 1 6.5 2h8A1.5 1.5 0 0 1 16 3.5v9a1.5 1.5 0 0 1-1.5 1.5h-8A1.5 1.5 0 0 1 5 12.5v-2a.5.5 0 0 1 1 0v2z"
+              />
+              <path
+                fill-rule="evenodd"
+                d="M.146 8.354a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L1.707 7.5H10.5a.5.5 0 0 1 0 1H1.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3z"
+              />
+            </svg>
+          </div>
+
+          <div id="exit-window" class="w3-modal">
+            <div class="w3-modal-content w3-animate-top w3-card-4 customForm alert-window d-flex" >
+              <div class="paragraph">
+                <h2 style="text-align: center; margin-top: 50px; color: black">
+                  Are you sure you want to exit the game?
+                </h2> <br>
+                <div class="d-flex justify-content-around">
+                  <a href="index.html"><button  class="alert-button"> <img src="/images/check.png" width="25px" alt="yes"> Yes</button></a>
+                  <button class="alert-button"
+                    onclick="document.getElementById('exit-window').style.display='none'"
+                  >
+                  <img src="/images/cancel.png" width="25px" alt="yes"> No
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+
+        </div>
+
+        <div class="row gamelog" id="gameHistory">
+          <div class="container" id="gameLog"></div>
+        </div>
+
+        <div class="player-section">
+          <div
+            class="row centered"
+            style="margin-top: 10px; margin-bottom: 20px"
+          >
+            <div id="player1Div" class="col-md-6 centered highlight-div">
+              <div
+                class="player-name"
+                type="text"
+                name="player1"
+                id="player1"
+              ></div>
+              <img
+                src=""
+                alt="player 1 avatar"
+                id="avatar1"
+                style="width: 100px"
+              />
+            </div>
+
+            <div id="player2Div" class="col-md-6 centered">
+              <div
+                class="player-name"
+                type="text"
+                name="player2"
+                id="player2"
+              ></div>
+              <img
+                src=""
+                alt="player 2 avatar"
+                id="avatar2"
+                style="width: 100px"
+              />
+            </div>
+          </div>
+
+          <div class="row centered">
+            <div id="diceContainer" class="diceButton centered">
+              <button id="rollDice">
+                <img
+                  src="images/dice/1.png"
+                  alt=""
+                  id="dice"
+                  width="75px"
+                  height="75px"
+                />
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

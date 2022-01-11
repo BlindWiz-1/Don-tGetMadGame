@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Don't Get Mad</title>
+    <link rel="shortcut icon" type="image/png" href="images\favicon\favicon.png"/>
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+      integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css" />
+    <script type="module" src="modules/firstPage.js"></script>
+  </head>
+
+  <body class="bg-jungle">
+    <div class="container">
+      <form id="initGame">
+        <div class="form-group">
+          <div class="row">
+            <div class="col-lg-2"></div>
+            <div class="col-lg-8">
+              <img src="images/logo.png" class="logo" alt="Don't get mad!" />
+
+              <div class="d-flex justify-content-around names">
+                <label for="firstPlayer" class="label-text">
+                  Player 1
+                  <input type="text" id="firstPlayer" maxlength="15" required
+                /></label>
+                <label for="secondPlayer" class="label-text">
+                  Player 2
+                  <input type="text" id="secondPlayer" maxlength="15" required
+                /></label>
+              </div>
+              <br />
+
+              <label class="centered label-text" for="theme">
+                Choose theme:
+              </label>
+              <br />
+              <div class="d-flex justify-content-around themes">
+                <label class="radio-inline theme-btn jungle-btn">
+                  <input
+                    type="radio"
+                    name="theme"
+                    id="jungle"
+                    value="jungle"
+                    checked
+                    required
+                  />
+                  <div
+                    class="centered"
+                    style="
+                      color: rgb(217, 236, 217);
+                      text-shadow: 1px 1px 3px black;
+                      height: inherit;
+                    "
+                  >
+                    JUNGLE
+                  </div>
+                </label>
+                <label class="radio-inline theme-btn island-btn">
+                  <input type="radio" name="theme" id="island" value="island" />
+                  <div class="centered" style="height: inherit">ISLAND</div>
+                </label>
+              </div>
+              <br />
+
+              <label class="centered label-text" for="avatar">
+                Choose Avatar:
+              </label>
+
+              <div class="row">
+                <div class="col-md-6">
+                  <label class="centered label-text" for="avatar">
+                    Player 1:
+                  </label>
+                  <div class="row justify-content-around">
+                    <label class="radio-inline">
+                      <input
+                        type="radio"
+                        name="avatar1"
+                        id="inlineRadio1"
+                        value="bird"
+                        required
+                      />
+                      <img src="images/avatars/bird.png" width="100px" />
+                    </label>
+                    <label class="radio-inline">
+                      <input
+                        type="radio"
+                        name="avatar1"
+                        id="inlineRadio2"
+                        value="wolf"
+                      />
+                      <img src="images/avatars/wolf.png" width="100px" />
+                    </label>
+                  </div>
+                  <div class="row justify-content-around">
+                    <label class="radio-inline">
+                      <input
+                        type="radio"
+                        name="avatar1"
+                        id="inlineRadio3"
+                        value="fish"
+                      />
+                      <img src="images/avatars/fish.png" width="100px" />
+                    </label>
+                    <label class="radio-inline">
+                      <input
+                        type="radio"
+                        name="avatar1"
+                        id="inlineRadio4"
+                        value="seal"
+                      />
+                      <img src="images/avatars/seal.png" width="100px" />
+                    </label>
+                  </div>
+                </div>
+                <div class="col-md-6" style="border-left: 2px solid #ffffff52">
+                  <label class="centered label-text" for="avatar">
+                    Player 2:
+                  </label>
+                  <div class="row justify-content-around">
+                    <label class="radio-inline">
+                      <input
+                        type="radio"
+                        name="avatar2"
+                        id="player2inlineRadio1"
+                        value="kangaroo"
+                        required
+                      />
+                      <img src="images/avatars/kangaroo.png" width="100px" />
+                    </label>
+                    <label class="radio-inline">
+                      <input
+                        type="radio"
+                        name="avatar2"
+                        id="player2inlineRadio2"
+                        value="koala"
+                      />
+                      <img src="images/avatars/koala.png" width="100px" />
+                    </label>
+                  </div>
+                  <div class="row justify-content-around">
+                    <label class="radio-inline">
+                      <input
+                        type="radio"
+                        name="avatar2"
+                        id="player2inlineRadio3"
+                        value="shark"
+                      />
+                      <img src="images/avatars/shark.png" width="100px" />
+                    </label>
+                    <label class="radio-inline">
+                      <input
+                        type="radio"
+                        name="avatar2"
+                        id="player2inlineRadio4"
+                        value="octopus"
+                      />
+                      <img src="images/avatars/octopus.png" width="100px" />
+                    </label>
+                  </div>
+                </div>
+              </div>
+              <br />
+              <div class="row">
+                <div class="col-md-2">
+                  <div class="justify-content-start">
+                    <div class="music-button">
+                      <div
+                        class="game-button red"
+                        id="musicButton"
+                        style="width: 50px; height: 50px"
+                      >
+                      <!--This iframe supposedly goes around the Chrome policy of not autoplaying audio files-->
+                      <iframe src="/audio/silence.mp3" allow="autoplay" id="silence" style="display: none"></iframe>
+                        <audio id="audio" autoplay>
+                          <source src="/audio/audio.mp3" type="audio/mp3" />
+                        </audio>
+                        <div id="pauseMusic">
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="25"
+                            height="25"
+                            fill="currentColor"
+                            class="bi bi-volume-up-fill"
+                            viewBox="3 3 12 14"
+                          >
+                            <path
+                              d="M11.536 14.01A8.473 8.473 0 0 0 14.026 8a8.473 8.473 0 0 0-2.49-6.01l-.708.707A7.476 7.476 0 0 1 13.025 8c0 2.071-.84 3.946-2.197 5.303l.708.707z"
+                            />
+                            <path
+                              d="M10.121 12.596A6.48 6.48 0 0 0 12.025 8a6.48 6.48 0 0 0-1.904-4.596l-.707.707A5.483 5.483 0 0 1 11.025 8a5.483 5.483 0 0 1-1.61 3.89l.706.706z"
+                            />
+                            <path
+                              d="M8.707 11.182A4.486 4.486 0 0 0 10.025 8a4.486 4.486 0 0 0-1.318-3.182L8 5.525A3.489 3.489 0 0 1 9.025 8 3.49 3.49 0 0 1 8 10.475l.707.707zM6.717 3.55A.5.5 0 0 1 7 4v8a.5.5 0 0 1-.812.39L3.825 10.5H1.5A.5.5 0 0 1 1 10V6a.5.5 0 0 1 .5-.5h2.325l2.363-1.89a.5.5 0 0 1 .529-.06z"
+                            />
+                          </svg>
+                        </div>
+                        <div id="playMusic" style="display: none">
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="25"
+                            height="25"
+                            fill="currentColor"
+                            class="bi bi-volume-mute-fill"
+                            viewBox="3 3 12 14"
+                          >
+                            <path
+                              d="M6.717 3.55A.5.5 0 0 1 7 4v8a.5.5 0 0 1-.812.39L3.825 10.5H1.5A.5.5 0 0 1 1 10V6a.5.5 0 0 1 .5-.5h2.325l2.363-1.89a.5.5 0 0 1 .529-.06zm7.137 2.096a.5.5 0 0 1 0 .708L12.207 8l1.647 1.646a.5.5 0 0 1-.708.708L11.5 8.707l-1.646 1.647a.5.5 0 0 1-.708-.708L10.793 8 9.146 6.354a.5.5 0 1 1 .708-.708L11.5 7.293l1.646-1.647a.5.5 0 0 1 .708 0z"
+                            />
+                          </svg>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-8 centered">
+                  <button class="game-button green" id="startGameBtn">
+                    Play Game
+                  </button>
+                  <!--Assigned an id to the Play Game button-->
+                </div>
+                <div class="col-md-2">
+                  <div class="justify-content-end">
+                    <div class="help-button">
+                      <div
+                        class="game-button"
+                        id="helpButton"
+                        style="width: 50px; height: 50px; text-align: center"
+                        onclick="document.getElementById('instructions').style.display='block'"
+                        class="btn btn-outline-dark createBtn"
+                      >
+                        ?
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div id="instructions" class="w3-modal">
+                  <div
+                    class="w3-modal-content w3-animate-top w3-card-4 customForm instruction-modale" >
+
+                    <div class="paragraph" >
+                      <h2 style="text-align: center;">Instructions</h2>
+                      <span id='removeInst'
+                        onclick="document.getElementById('instructions').style.display='none'"
+                        class="w3-button w3-display-topright customFormX"
+                        >&times;</span
+                      ><br />
+                      <p>1) There are 2 players playing the game.</p>
+                      <p>2) They both start at position 0.</p>
+                      <p>
+                        3) The player must throw 6 in order to start moving
+                        through the board.
+                      </p>
+                      <p>
+                        4) If a 6 is thrown the player has a chance to throw
+                        again. If there is a 3-rd time the player is blocked.
+                      </p>
+                      <p>
+                        5) Along the board there are placed traps and wild
+                        cards.
+                      </p>
+                      <p>
+                        6) The traps send the player backwards, while the wild
+                        card is by chance, the player is
+                        incremented/decremented, or doesn't move at all.
+                      </p>
+                      <p>
+                        7) If a player moves to another player's tile it sends
+                        that player back to the beginning of the board (1-st
+                        position).
+                      </p>
+                      <p>
+                        8) You CAN NOT end the game on a 6 (if you are standing
+                        on tile 44 and roll a 6 you will not win the game).
+                      </p>
+                      <br />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-2"></div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </body>
+</html>
